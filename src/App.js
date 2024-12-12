@@ -1,17 +1,22 @@
-import React from 'react';
-import './styles/App.css';
-import StudentForm from './components/StudentForm';
-import ResponsibleForm from './components/ResponsibleForm';
+// App.js
+import React, { useState } from 'react';
+import { login, register } from './api/script';
 
-function App() {
+const App = () => {
+    const [isLogin, setIsLogin] = useState(true);
+
     return (
         <div>
-            <div className="content-form">
-                <StudentForm />  {}
-                <ResponsibleForm />  {}
+            <h1>Bienvenido</h1>
+            <div>
+                <button onClick={() => setIsLogin(true)}>Inicio de Sesión</button>
+                <button onClick={() => setIsLogin(false)}>Registro</button>
+            </div>
+            <div>
+                {isLogin ? <login /> : <register />}
             </div>
         </div>
     );
-}
+};
 
 export default App;
