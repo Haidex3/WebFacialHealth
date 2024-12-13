@@ -38,7 +38,6 @@ export default function ProductsForm() {
     );
 }
 
-// Estilos usando styled-components
 const Container = styled.div`
     background-image: url('/background-image.jpg');
     background-size: cover;
