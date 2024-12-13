@@ -1,56 +1,170 @@
-// src/components/RegisterForm.js
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { register } from '../api/script';
+const RegisterForm = () => {
+    const [userData, setUserData] = useState({
+        username: '',
+        password: '',
+        email: '',
+        age: '',
+        gender: '',
+    });
 
-const RegisterForm = ({ onRegisterSuccess }) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserData({
+            ...userData,
+            [name]: value,
+        });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(''); // Reset error message
-
-        const userData = {
-            username,
-            password
-        };
+        setLoading(true);
+        setError('');
 
         try {
-            const response = await register(userData);
-            onRegisterSuccess(response);
-        } catch (err) {
-            setError('Error al registrar el usuario o el servidor');
+            await register(userData);
+            alert('Usuario registrado exitosamente');
+        } catch (error) {
+            setError('Error al registrar el usuario');
+        } finally {
+            setLoading(false);
         }
     };
 
+    const handleBackToLogin = () => {
+        // Redirige a la página de inicio de sesión (ajusta la lógica de redirección según tu ruta)
+        window.location.href = '/login'; // Ejemplo con redirección directa
+    };
+
     return (
-        <div>
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username</label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type="submit">Register</button>
-            </form>
-        </div>
+        <Container>
+            <Title>Registrarse</Title>
+            <Form onSubmit={handleSubmit}>
+                <Input
+                    type="text"
+                    name="username"
+                    value={userData.username}
+                    onChange={handleChange}
+                    placeholder="Nombre de usuario"
+                    required
+                />
+                <Input
+                    type="password"
+                    name="password"
+                    value={userData.password}
+                    onChange={handleChange}
+                    placeholder="Contraseña"
+                    required
+                />
+                <Input
+                    type="email"
+                    name="email"
+                    value={userData.email}
+                    onChange={handleChange}
+                    placeholder="Correo electrónico"
+                    required
+                />
+                <Input
+                    type="number"
+                    name="age"
+                    value={userData.age}
+                    onChange={handleChange}
+                    placeholder="Edad"
+                    required
+                />
+                <Input
+                    type="text"
+                    name="gender"
+                    value={userData.gender}
+                    onChange={handleChange}
+                    placeholder="Género"
+                    required
+                />
+                {error && <ErrorMessage>{error}</ErrorMessage>}
+                <Button type="submit" disabled={loading}>
+                    {loading ? 'Registrando...' : 'Registrar'}
+                </Button>
+                <BackButton type="button" onClick={handleBackToLogin}>
+                    Volver al inicio de sesión
+                </BackButton>
+            </Form>
+        </Container>
     );
 };
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+`;
+
+const Title = styled.h1`
+    font-size: 2rem;
+    margin-bottom: 20px;
+`;
+
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+`;
+
+const Input = styled.input`
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+`;
+
+const Button = styled.button`
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    
+    &:hover {
+        background-color: #0056b3;
+    }
+
+    &:disabled {
+        background-color: #a1c1e6;
+        cursor: not-allowed;
+    }
+`;
+
+const BackButton = styled.button`
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #ccc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #999;
+    }
+`;
+
+const ErrorMessage = styled.p`
+    color: red;
+    font-size: 0.9rem;
+`;
 
 export default RegisterForm;

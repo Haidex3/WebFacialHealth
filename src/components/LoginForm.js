@@ -2,73 +2,72 @@ import React, { useState } from 'react';
 import { login } from '../api/script';
 import styled from 'styled-components';
 
-// Estilos globales
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0; /* Gris claro */
-  flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh; /* Reducir la altura del contenedor para que esté más arriba */
+    background-color: #f0f0f0; /* Gris claro */
+    flex-direction: column;
 `;
 
 const Logo = styled.img`
-  width: 100px;
-  height: auto;
-  margin-bottom: 20px;
+    width: 140px; /* Aumenta el tamaño del logo un 40% */
+    height: auto;
+    margin-bottom: 20px;
 `;
 
 const Title = styled.h1`
-  color: #333;
-  font-size: 3rem;
-  margin-bottom: 30px;
+    color: #333;
+    font-size: 3rem;
+    margin-bottom: 30px;
 `;
 
 const Form = styled.form`
-  background-color: white;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
 `;
 
 const Input = styled.input`
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
-  &:focus {
-    border-color: #5c9ded;
-    outline: none;
-  }
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    &:focus {
+        border-color: #5c9ded;
+        outline: none;
+    }
 `;
 
 const Button = styled.button`
-  background-color: #5c9ded; /* Azul claro */
-  color: white;
-  padding: 15px;
-  border: none;
-  border-radius: 4px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 15px;
-  &:hover {
-    background-color: #4a8bc2;
-  }
+    background-color: #5c9ded; /* Azul claro */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    &:hover {
+        background-color: #4a8bc2;
+    }
 `;
 
 const ErrorMessage = styled.p`
-  color: red;
-  font-size: 0.9rem;
-  text-align: center;
-  margin-top: 10px;
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 10px;
 `;
 
 function LoginForm() {
@@ -88,12 +87,11 @@ function LoginForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(''); // Limpiar el mensaje de error antes de cada intento
+        setError('');
 
         try {
             const response = await login(credentials);
             console.log('Usuario logueado con éxito:', response);
-            // Redirigir o hacer algo después de un login exitoso
         } catch (err) {
             setError('Credenciales incorrectas');
         }
@@ -101,7 +99,7 @@ function LoginForm() {
 
     return (
         <Container>
-            <Logo src="/path-to-logo.png" alt="Logo" />
+            <Logo src="/path-to-logo.jpg" alt="Logo" />
             <Title>SKINGLOW</Title>
             <Form onSubmit={handleSubmit}>
                 <Input

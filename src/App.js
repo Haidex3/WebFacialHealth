@@ -1,26 +1,24 @@
 import React, { useState } from 'react';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
-import styled from 'styled-components'; // Para estilos
+import styled from 'styled-components';
 
-// Estilo para el contenedor del botón
 const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 20px;
 `;
 
-// Estilo para el botón
 const Button = styled.button`
     background: none;
     border: none;
-    color: #007bff; /* Color de texto azul */
-    text-decoration: underline; /* Subrayado */
+    color: #007bff;
+    text-decoration: underline; 
     font-size: 1rem;
     cursor: pointer;
     padding: 0;
     &:hover {
-        color: #0056b3; /* Cambiar color cuando se pasa el ratón */
+        color: #0056b3; 
     }
 `;
 
@@ -49,14 +47,14 @@ function App() {
                     )}
                     <ButtonContainer>
                         <Button onClick={() => setIsRegistering(!isRegistering)}>
-                            {isRegistering ? 'Already have an account? Login' : '¿No tienes una cuenta? Registrate'}
+                            {isRegistering ? '' : '¿No tienes una cuenta? Registrate'}
                         </Button>
                     </ButtonContainer>
                 </div>
             ) : (
                 <div>
                     <h2>Welcome back!</h2>
-                    {/* Aquí puedes agregar un componente de dashboard o lo que prefieras */}
+                    {/*  */}
                 </div>
             )}
         </div>

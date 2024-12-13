@@ -36,9 +36,14 @@ export async function register(userData) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(userData),
+            body: JSON.stringify({
+                username: userData.username,
+                password: userData.password,
+                email: userData.email,
+                age: userData.age,
+                gender: userData.gender
+            }),
         };
-
         const response = await fetch(url, options);
         console.log(response);
 
@@ -54,3 +59,4 @@ export async function register(userData) {
         throw error;
     }
 }
+
