@@ -68,7 +68,7 @@ const Container = styled.div`
 
 const MenuBar = styled.nav`
     width: 100%;
-    background-color: rgba(226, 176, 249, 255);
+    background-color: rgba(178, 218, 250, 1);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -114,7 +114,7 @@ const Sidebar = styled.div`
     left: ${({ isOpen }) => (isOpen ? '0' : '-270px')};
     height: 100%;
     width: 175px;
-    background-color: rgba(178, 218, 250, 1);
+    background-color: rgba(232, 218, 213, 1);
     z-index: 2000;
     display: flex;
     flex-direction: column;
