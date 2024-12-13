@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import MenuForm from './MenuForm';
+import MenuForm from './MenuForm'; // Menú horizontal
+import IzqMenuForm from './IzqMenuForm'; // Menú vertical
 
 export default function ProductsForm() {
     const products = [
@@ -20,8 +21,9 @@ export default function ProductsForm() {
 
     return (
         <>
-            <MenuForm /> {/* Agrega el menú */}
-            <Container>
+            <MenuForm /> {/* Menú horizontal */}
+            <IzqMenuForm /> {/* Menú vertical */}
+            <MainContent>
                 <h1>Productos de Cuidado de la Piel</h1>
                 <ProductsList>
                     {products.map((product, index) => (
@@ -33,23 +35,23 @@ export default function ProductsForm() {
                         </ProductCard>
                     ))}
                 </ProductsList>
-            </Container>
+            </MainContent>
         </>
     );
 }
 
-const Container = styled.div`
+const MainContent = styled.div`
+    margin-left: 60px; /* Deja espacio para el menú izquierdo */
+    margin-top: 60px;  /* Deja espacio para el menú superior */
+    padding: 20px;
     background-image: url('/background-image.jpg');
     background-size: cover;
     background-position: center;
-    color: #000;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 20px;
-    padding-top: 80px;
+    align-items: center; /* Centra el contenido horizontalmente */
+    justify-content: flex-start; /* Alinea desde la parte superior */
 `;
 
 const ProductsList = styled.div`
@@ -59,17 +61,20 @@ const ProductsList = styled.div`
     margin-top: 20px;
     width: 100%;
     max-width: 800px;
+    align-items: center; /* Centra las tarjetas de productos */
 `;
 
 const ProductCard = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; 
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo más suave */
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: none; /* Sin borde o sombra */
     transition: transform 0.3s ease;
+    width: 100%; /* Asegura que las tarjetas ocupen todo el ancho disponible */
+    max-width: 600px; /* Define un ancho máximo para las tarjetas */
     &:hover {
         transform: translateY(-5px);
     }
@@ -79,6 +84,7 @@ const ProductName = styled.h2`
     font-size: 1.5rem;
     color: #333;
     margin: 0 0 10px 0;
+    text-align: center; /* Centra el nombre del producto */
 `;
 
 const ProductLink = styled.a`

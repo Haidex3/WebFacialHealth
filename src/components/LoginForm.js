@@ -6,17 +6,27 @@ const handleBackToTwit = () => {
     window.location.href = '/twit';
 };
 
+const handleRegisterRedirect = () => {
+    window.location.href = '/register';
+};
+
+const handleCompanyRedirect = () => {
+    window.location.href = '/CompaniView';
+};
+
 const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh; 
-    background-color: #f0f0f0; 
+    height: 90vh;
+    background-image: url('/FondoInicio.jpg');
+    background-size: cover;
+    background-position: center;
     flex-direction: column;
 `;
 
 const Logo = styled.img`
-    width: 140px; 
+    width: 140px;
     height: auto;
     margin-bottom: 20px;
 `;
@@ -64,6 +74,30 @@ const Button = styled.button`
     margin-top: 15px;
     &:hover {
         background-color: #4a8bc2;
+    }
+`;
+
+const RegisterLink = styled.span`
+    margin-top: 15px;
+    color: #5c9ded;
+    font-size: 1rem;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+        color: #4a8bc2;
+    }
+`;
+
+const CompanyButton = styled.div`
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    img {
+        width: 50px;
+        height: 50px;
     }
 `;
 
@@ -122,6 +156,12 @@ function LoginForm() {
                 />
                 <Button type="submit" onClick={handleBackToTwit}>Iniciar sesión</Button>
                 {error && <ErrorMessage>{error}</ErrorMessage>}
+                <RegisterLink onClick={handleRegisterRedirect}>
+                    Registrarse
+                </RegisterLink>
+                <CompanyButton onClick={handleCompanyRedirect}>
+                    <img src="/icono.png" alt="Acceder como Empresa" />
+                </CompanyButton>
             </Form>
         </Container>
     );

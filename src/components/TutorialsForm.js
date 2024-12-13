@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import MenuForm from './MenuForm';
+import MenuForm from './MenuForm'; // Menú horizontal
+import IzqMenuForm from './IzqMenuForm'; // Menú vertical
 
 export default function TutorialsForm() {
     const videos = [
@@ -9,11 +10,11 @@ export default function TutorialsForm() {
         "https://www.youtube.com/embed/a9liloVjTP8?si=pR4utVX08_maPHbY"
     ];
 
-
     return (
         <>
-            <MenuForm /> {/* Agrega el menú */}
-            <Container>
+            <MenuForm /> {/* Menú horizontal */}
+            <IzqMenuForm /> {/* Menú vertical */}
+            <MainContent>
                 <h1>Tutoriales de Cuidado de la Piel</h1>
                 <VideoList>
                     {videos.map((video, index) => (
@@ -30,23 +31,23 @@ export default function TutorialsForm() {
                         </VideoItem>
                     ))}
                 </VideoList>
-            </Container>
+            </MainContent>
         </>
     );
 }
 
-const Container = styled.div`
+const MainContent = styled.div`
+    margin-left: 60px;
+    margin-top: 60px;
+    padding: 20px;
     background-image: url('/background-image.jpg');
     background-size: cover;
     background-position: center;
-    color: #000;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 20px;
-    padding-top: 80px; 
+    align-items: center; /* Centra el contenido horizontalmente */
+    justify-content: flex-start; /* Alinea el contenido desde el inicio */
 `;
 
 const VideoList = styled.div`
@@ -56,6 +57,7 @@ const VideoList = styled.div`
     margin-top: 20px;
     width: 100%;
     max-width: 800px;
+    align-items: center; /* Centra los videos dentro de la lista */
 `;
 
 const VideoItem = styled.div`

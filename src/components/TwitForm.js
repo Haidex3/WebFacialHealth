@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getAllTwits, createTwit } from '../api/script';
 import styled from 'styled-components';
-import MenuForm from './MenuForm'; // Importa el menú
-import { FaPen } from 'react-icons/fa'; // Importa el icono de lápiz
+import MenuForm from './MenuForm'; // Menú horizontal
+import IzqMenuForm from './IzqMenuForm'; // Menú vertical
+import { FaPen } from 'react-icons/fa'; // Icono de lápiz
 
 export default function TwitForm() {
     const [twits, setTwits] = useState([]);
@@ -33,7 +34,8 @@ export default function TwitForm() {
 
     return (
         <>
-            <MenuForm /> {/* Agrega el menú */}
+            <MenuForm /> {/* Menú horizontal */}
+            <IzqMenuForm /> {/* Menú vertical */}
             <Container>
                 {/* Botón de lápiz para mostrar/ocultar el formulario */}
                 <CreateTwitButton onClick={() => setIsFormVisible(!isFormVisible)}>
@@ -73,9 +75,8 @@ export default function TwitForm() {
     );
 }
 
-// Estilos usando styled-components
 const Container = styled.div`
-    background-image: url('/background-image.jpg'); /* Asignar la imagen de fondo desde la carpeta public */
+    background-image: url('/background-image.jpg');
     background-size: cover;
     background-position: center;
     color: #000;
@@ -85,13 +86,15 @@ const Container = styled.div`
     align-items: center;
     justify-content: flex-start;
     padding: 20px;
-    padding-top: 80px; /* Respeta la altura del menú */
+    padding-top: 80px; 
+    margin-left: 60px; 
+    width: 100%;
 `;
 
 const CreateTwitButton = styled.button`
     position: fixed;
     bottom: 30px;
-    left: 30px;
+    left: 200px; /* Mover el botón hacia la derecha */
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -111,6 +114,7 @@ const FormContainer = styled.div`
     gap: 10px;
     width: 300px;
     margin-bottom: 20px;
+    align-items: center; 
 `;
 
 const Input = styled.input`
@@ -118,6 +122,7 @@ const Input = styled.input`
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 100%;
 `;
 
 const Textarea = styled.textarea`
@@ -126,6 +131,7 @@ const Textarea = styled.textarea`
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: vertical;
+    width: 100%;
 `;
 
 const Button = styled.button`
@@ -135,6 +141,7 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 100%;
     &:hover {
         background-color: #45a049;
     }
@@ -144,6 +151,7 @@ const TwitsContainer = styled.div`
     width: 80%;
     max-width: 600px;
     margin-top: 20px;
+    text-align: center; 
 `;
 
 const TwitsList = styled.ul`
@@ -154,8 +162,8 @@ const TwitsList = styled.ul`
 const TwitItem = styled.li`
     padding: 10px;
     margin-bottom: 10px;
-    background-color: transparent; /* Hacer transparente el fondo del twit */
-    border: none; /* Eliminar el borde */
+    background-color: transparent;
+    border: none;
     font-size: 1.1rem;
 `;
 
