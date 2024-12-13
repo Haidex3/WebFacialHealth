@@ -39,7 +39,9 @@ export default function ProductsForm() {
 }
 
 const MainContent = styled.div`
-    margin-top: 60px;  /* Deja espacio para el menú superior */
+    margin-left: -8px;
+    margin-right: -8px;
+    margin-top: 50px;  /* Deja espacio para el menú superior */
     padding: 20px;
     background-image: url('/background-image.jpg');
     background-size: cover;

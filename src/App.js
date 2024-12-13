@@ -5,6 +5,8 @@ import RegisterForm from './components/RegisterForm';
 import TwitForm from './components/TwitForm';
 import TutorialsForm from './components/TutorialsForm';
 import ProductsForm from './components/ProductsForm';
+import AnalisisForm1 from "./components/AnalisisForm1";
+import LegalForm from "./components/LegalForm"
 import styled from 'styled-components';
 
 const ButtonContainer = styled.div`
@@ -35,6 +37,8 @@ function AppWithRouter() {
                 <Route path="/twit" element={<TwitForm />} />
                 <Route path="/tutorials" element={<TutorialsForm />} />
                 <Route path="/products" element={<ProductsForm />} />
+                <Route path="/legal" element={<LegalForm />} />
+                <Route path="/analisis" element={<AnalisisForm1 />} />
                 <Route path="/" element={<LoginForm />} />
             </Routes>
         </Router>

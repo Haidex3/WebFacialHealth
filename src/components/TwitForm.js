@@ -58,7 +58,7 @@ export default function TwitForm() {
                 )}
 
                 <TwitsContainer>
-                    <h2>Lista de Twits</h2>
+                    <h1>Lista de Twits</h1>
                     <TwitsList>
                         {twits.map((twit, index) => (
                             <TwitItem key={index}>
@@ -74,6 +74,8 @@ export default function TwitForm() {
 }
 
 const Container = styled.div`
+    margin-left: -8px;
+    margin-right: -8px;
     background-image: url('/background-image.jpg');
     background-size: cover;
     background-position: center;
@@ -84,8 +86,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: flex-start;
     padding: 20px;
-    padding-top: 80px;
-    margin-left: 60px;
+    padding-top: 50px;
     width: 100%;
 `;
 

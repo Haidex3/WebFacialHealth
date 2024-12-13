@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import MenuForm from './MenuForm';  // Importa el componente MenuForm
 
 export default function TutorialsForm() {
     const videos = [
@@ -10,6 +11,9 @@ export default function TutorialsForm() {
 
     return (
         <MainContent>
+            {/* Incluir el menú en la página de tutoriales */}
+            <MenuForm />
+
             <h1>Tutoriales de Cuidado de la Piel</h1>
             <VideoList>
                 {videos.map((video, index) => (
@@ -31,8 +35,9 @@ export default function TutorialsForm() {
 }
 
 const MainContent = styled.div`
-    margin-left: 60px;
     margin-top: 60px;
+    margin-left: -8px;
+    margin-right: -8px;
     padding: 20px;
     background-image: url('/background-image.jpg');
     background-size: cover;
