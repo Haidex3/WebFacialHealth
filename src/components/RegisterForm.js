@@ -1,6 +1,6 @@
 // src/components/RegisterForm.js
 import React, { useState } from 'react';
-import { register } from '../api/script'; // Asegúrate de importar las funciones login y register
+import { register } from '../api/script';
 
 const RegisterForm = ({ onRegisterSuccess }) => {
     const [username, setUsername] = useState('');
@@ -18,7 +18,6 @@ const RegisterForm = ({ onRegisterSuccess }) => {
 
         try {
             const response = await register(userData);
-            // Si el registro es exitoso, ejecutar onRegisterSuccess
             onRegisterSuccess(response);
         } catch (err) {
             setError('Error al registrar el usuario o el servidor');
