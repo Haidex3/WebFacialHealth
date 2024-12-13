@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { getAllTwits, createTwit } from '../api/script';
 import styled from 'styled-components';
+import MenuForm from './MenuForm'; // Importa el menú
+import { FaPen } from 'react-icons/fa'; // Importa el icono de lápiz
 
 export default function TwitForm() {
     const [twits, setTwits] = useState([]);
     const [username, setUsername] = useState('');
     const [details, setDetails] = useState('');
+    const [isFormVisible, setIsFormVisible] = useState(false); // Controla la visibilidad del formulario
 
     useEffect(() => {
         const fetchTwits = async () => {
@@ -23,40 +26,49 @@ export default function TwitForm() {
             setTwits(prevTwits => [...prevTwits, newTwit]);
             setUsername('');
             setDetails('');
+            setIsFormVisible(false); // Ocultar el formulario después de crear el twit
         }
     };
 
     return (
-        <Container>
-            <Header>TwitForm</Header>
+        <>
+            <MenuForm /> {/* Agrega el menú */}
+            <Container>
+                {/* Botón de lápiz para mostrar/ocultar el formulario */}
+                <CreateTwitButton onClick={() => setIsFormVisible(!isFormVisible)}>
+                    <FaPen />
+                </CreateTwitButton>
 
-            <FormContainer>
-                <Input
-                    type="text"
-                    placeholder="Nombre de usuario"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <Textarea
-                    placeholder="Escribe tu mensaje"
-                    value={details}
-                    onChange={(e) => setDetails(e.target.value)}
-                />
-                <Button onClick={handleCreateTwit}>Crear Twit</Button>
-            </FormContainer>
+                {isFormVisible && (
+                    <FormContainer>
+                        <Input
+                            type="text"
+                            placeholder="Nombre de usuario"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                        <Textarea
+                            placeholder="Escribe tu mensaje"
+                            value={details}
+                            onChange={(e) => setDetails(e.target.value)}
+                        />
+                        <Button onClick={handleCreateTwit}>Crear Twit</Button>
+                    </FormContainer>
+                )}
 
-            <TwitsContainer>
-                <h2>Lista de Twits</h2>
-                <TwitsList>
-                    {twits.map((twit, index) => (
-                        <TwitItem key={index}>
-                            <strong>{twit.username}</strong>
-                            <Content>{twit.details}</Content>
-                        </TwitItem>
-                    ))}
-                </TwitsList>
-            </TwitsContainer>
-        </Container>
+                <TwitsContainer>
+                    <h2>Lista de Twits</h2>
+                    <TwitsList>
+                        {twits.map((twit, index) => (
+                            <TwitItem key={index}>
+                                <strong>{twit.username}</strong>
+                                <Content>{twit.details}</Content>
+                            </TwitItem>
+                        ))}
+                    </TwitsList>
+                </TwitsContainer>
+            </Container>
+        </>
     );
 }
 
@@ -70,12 +82,24 @@ const Container = styled.div`
     align-items: center;
     justify-content: flex-start;
     padding: 20px;
+    padding-top: 80px; /* Respeta la altura del menú */
 `;
 
-const Header = styled.h1`
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 20px;
+const CreateTwitButton = styled.button`
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    &:hover {
+        background-color: #45a049;
+    }
 `;
 
 const FormContainer = styled.div`
