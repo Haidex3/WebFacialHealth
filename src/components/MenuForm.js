@@ -114,7 +114,7 @@ const Sidebar = styled.div`
     left: ${({ isOpen }) => (isOpen ? '0' : '-270px')};
     height: 100%;
     width: 175px;
-    background-color: rgba(232, 218, 213, 1);
+    background-color: rgba(178, 218, 250, 1);
     z-index: 2000;
     display: flex;
     flex-direction: column;
@@ -123,7 +123,7 @@ const Sidebar = styled.div`
     padding-top: 20px;
     padding-left: 20px;
     overflow: hidden;
-    margin-top: 64px;  /* Desplazar todo el menú vertical hacia abajo */
+    margin-top: 64px; 
 `;
 
 const Text = styled.span`

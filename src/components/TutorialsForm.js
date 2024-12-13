@@ -36,8 +36,8 @@ export default function TutorialsForm() {
 
 const MainContent = styled.div`
     margin-top: 60px;
-    margin-left: -8px;
-    margin-right: -8px;
+    margin-left: -20px;
+    margin-right: -20px;
     padding: 20px;
     background-image: url('/background-image.jpg');
     background-size: cover;

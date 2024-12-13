@@ -74,7 +74,7 @@ export default function TwitForm() {
 }
 
 const Container = styled.div`
-    margin-left: -8px;
+    margin-left: -20px;
     margin-right: -8px;
     background-image: url('/background-image.jpg');
     background-size: cover;
