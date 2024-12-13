@@ -1,82 +1,103 @@
+import React, { useState, useEffect } from 'react';
+
 const apiUrl = 'http://localhost:8081';
 
-export async function findResponsibleByDocument(numberDocument, token) {
+export async function login(credentials) {
     try {
-        const response = await fetch(`${apiUrl}/find/responsible/document?responsibleDocNumber=${numberDocument}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
-        });
+        const url = `${apiUrl}/auth/login`;
 
-
-        if (!response.ok) {
-            const errorDetails = await response.text();
-            console.error('Server responded with error:', response.status, errorDetails);
-            throw new Error(`Failed to find responsible: ${response.status} - ${errorDetails}`);
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Error finding responsible:', error);
-        throw error;
-    }
-}
-
-export async function registerStudent(student) {
-    try {
-
-        const response = await fetch(`${apiUrl}/registerStudent`, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(student),
+            body: JSON.stringify(credentials),
         });
 
-        if (!response.ok) {
-            throw new Error('Failed to register student for back');
-        }
+        console.log(response.ok);
 
-        return await response.json();
+        if (response.ok) {
+            return response;
+        } else {
+            const errorData = await response.text();
+            console.error("Error al hacer login:", errorData);
+            throw new Error(errorData);
+        }
     } catch (error) {
-        console.error('Error registering student:', error);
+        console.error("Hubo un problema con la petición:", error);
         throw error;
     }
 }
 
-export async function registerResponsible(numberDocument, newTypeDocument, newName, newPhoneNumber, newEmail, newAddress) {
-    try {
-        console.log('Responsible data being sent:', numberDocument);
 
-        const response = await fetch(`${apiUrl}/registerResponsible`, {
+export async function register(userData) {
+    try {
+        const url = `${apiUrl}/auth/register`;
+        const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                document: numberDocument,
-                typeDocument: newTypeDocument,
-                name: newName,
-                phoneNumber: newPhoneNumber,
-                email: newEmail,
-                address: newAddress
-            })
-        });
-
+                username: userData.username,
+                password: userData.password,
+                email: userData.email,
+                age: userData.age,
+                gender: userData.gender
+            }),
+        };
+        const response = await fetch(url, options);
         if (!response.ok) {
-            const errorDetails = await response.text();
-            console.error('Server responded with error:', response.status, errorDetails);
-            throw new Error(`Failed to register responsible: ${response.status} - ${errorDetails}`);
+            throw new Error(`Error: ${response.status}`);
+        }
+        const contentType = response.headers.get('Content-Type');
+
+        if (contentType && contentType.includes('application/json')) {
+            const data = await response.json();
+            return data;
+        } else {
+            const text = await response.text();
+            console.log('Respuesta no JSON:', text);
+            throw new Error('La respuesta no es JSON');
         }
 
-        return await response.json();
     } catch (error) {
-        console.error('Error registering responsible:', error);
+        console.error('Error during registration:', error);
         throw error;
     }
-
-
 }
 
+export async function getAllTwits() {
+    try {
+        const response = await fetch(`${apiUrl}/twits/getAllTwits`);
+        if (response.ok) {
+            return await response.json();
+        } else {
+            throw new Error('Error al obtener los twits');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return [];
+    }
+}
+
+export async function createTwit(username, details) {
+    try {
+        const response = await fetch(`${apiUrl}/twits/createTwit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, details }),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            throw new Error('Error al crear el twit');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return null;
+    }
+}
 
