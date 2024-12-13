@@ -6,13 +6,13 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh; /* Reducir la altura del contenedor para que esté más arriba */
-    background-color: #f0f0f0; /* Gris claro */
+    height: 90vh; 
+    background-color: #f0f0f0; 
     flex-direction: column;
 `;
 
 const Logo = styled.img`
-    width: 140px; /* Aumenta el tamaño del logo un 40% */
+    width: 140px; 
     height: auto;
     margin-bottom: 20px;
 `;
@@ -49,7 +49,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-    background-color: #5c9ded; /* Azul claro */
+    background-color: #5c9ded;
     color: white;
     padding: 15px;
     border: none;

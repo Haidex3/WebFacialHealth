@@ -12,10 +12,10 @@ export async function login(credentials) {
             body: JSON.stringify(credentials),
         });
 
+        console.log(response.ok);
+
         if (response.ok) {
-            const data = await response.json();
-            console.log("Inicio de sesión exitoso:", data);
-            return data;
+            return response;
         } else {
             const errorData = await response.text();
             console.error("Error al hacer login:", errorData);
@@ -45,18 +45,24 @@ export async function register(userData) {
             }),
         };
         const response = await fetch(url, options);
-        console.log(response);
-
         if (!response.ok) {
-            const errorDetails = await response.text();
-            console.error('Server responded with error:', response.status, errorDetails);
-            throw new Error(`Registration failed: ${response.status} - ${errorDetails}`);
+            throw new Error(`Error: ${response.status}`);
+        }
+        const contentType = response.headers.get('Content-Type');
+
+        if (contentType && contentType.includes('application/json')) {
+            const data = await response.json();
+            return data;
+        } else {
+            const text = await response.text();
+            console.log('Respuesta no JSON:', text);
+            throw new Error('La respuesta no es JSON');
         }
 
-        return await response.json();
     } catch (error) {
         console.error('Error during registration:', error);
         throw error;
     }
 }
+
 

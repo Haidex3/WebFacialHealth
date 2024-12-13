@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { register } from '../api/script';
+
 const RegisterForm = () => {
     const [userData, setUserData] = useState({
         username: '',
@@ -28,8 +29,9 @@ const RegisterForm = () => {
 
         try {
             await register(userData);
-            alert('Usuario registrado exitosamente');
+            setError('registrado correctamente');
         } catch (error) {
+            console.error('Error during registration:', error);
             setError('Error al registrar el usuario');
         } finally {
             setLoading(false);
@@ -37,8 +39,7 @@ const RegisterForm = () => {
     };
 
     const handleBackToLogin = () => {
-        // Redirige a la página de inicio de sesión (ajusta la lógica de redirección según tu ruta)
-        window.location.href = '/login'; // Ejemplo con redirección directa
+        window.location.href = '/login';
     };
 
     return (
@@ -85,7 +86,7 @@ const RegisterForm = () => {
                     placeholder="Género"
                     required
                 />
-                {error && <ErrorMessage>{error}</ErrorMessage>}
+                {error && <ErrorMessage isSuccess={error === 'registrado correctamente'}>{error}</ErrorMessage>}
                 <Button type="submit" disabled={loading}>
                     {loading ? 'Registrando...' : 'Registrar'}
                 </Button>
@@ -136,7 +137,7 @@ const Button = styled.button`
     border-radius: 5px;
     font-size: 1rem;
     cursor: pointer;
-    
+
     &:hover {
         background-color: #0056b3;
     }
@@ -163,8 +164,12 @@ const BackButton = styled.button`
 `;
 
 const ErrorMessage = styled.p`
-    color: red;
+    color: ${(props) => (props.isSuccess ? 'green' : 'red')};
     font-size: 0.9rem;
 `;
+
+ErrorMessage.defaultProps = {
+    isSuccess: false,
+};
 
 export default RegisterForm;
