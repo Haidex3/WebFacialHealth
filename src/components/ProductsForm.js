@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import MenuForm from './MenuForm'; // Menú horizontal
-import IzqMenuForm from './IzqMenuForm'; // Menú vertical
 
 export default function ProductsForm() {
     const products = [
@@ -22,7 +21,6 @@ export default function ProductsForm() {
     return (
         <>
             <MenuForm /> {/* Menú horizontal */}
-            <IzqMenuForm /> {/* Menú vertical */}
             <MainContent>
                 <h1>Productos de Cuidado de la Piel</h1>
                 <ProductsList>
@@ -41,7 +39,6 @@ export default function ProductsForm() {
 }
 
 const MainContent = styled.div`
-    margin-left: 60px; /* Deja espacio para el menú izquierdo */
     margin-top: 60px;  /* Deja espacio para el menú superior */
     padding: 20px;
     background-image: url('/background-image.jpg');
@@ -67,7 +64,7 @@ const ProductsList = styled.div`
 const ProductCard = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8); /* Fondo más suave */
     border-radius: 10px;

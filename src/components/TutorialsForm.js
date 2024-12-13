@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import MenuForm from './MenuForm'; // Menú horizontal
-import IzqMenuForm from './IzqMenuForm'; // Menú vertical
 
 export default function TutorialsForm() {
     const videos = [
@@ -11,28 +9,24 @@ export default function TutorialsForm() {
     ];
 
     return (
-        <>
-            <MenuForm /> {/* Menú horizontal */}
-            <IzqMenuForm /> {/* Menú vertical */}
-            <MainContent>
-                <h1>Tutoriales de Cuidado de la Piel</h1>
-                <VideoList>
-                    {videos.map((video, index) => (
-                        <VideoItem key={index}>
-                            <iframe
-                                width="560"
-                                height="315"
-                                src={video}
-                                title={`Video ${index + 1}`}
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
-                        </VideoItem>
-                    ))}
-                </VideoList>
-            </MainContent>
-        </>
+        <MainContent>
+            <h1>Tutoriales de Cuidado de la Piel</h1>
+            <VideoList>
+                {videos.map((video, index) => (
+                    <VideoItem key={index}>
+                        <iframe
+                            width="560"
+                            height="315"
+                            src={video}
+                            title={`Video ${index + 1}`}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                    </VideoItem>
+                ))}
+            </VideoList>
+        </MainContent>
     );
 }
 

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { getAllTwits, createTwit } from '../api/script';
 import styled from 'styled-components';
 import MenuForm from './MenuForm'; // Menú horizontal
-import IzqMenuForm from './IzqMenuForm'; // Menú vertical
 import { FaPen } from 'react-icons/fa'; // Icono de lápiz
 
 export default function TwitForm() {
@@ -35,7 +34,6 @@ export default function TwitForm() {
     return (
         <>
             <MenuForm /> {/* Menú horizontal */}
-            <IzqMenuForm /> {/* Menú vertical */}
             <Container>
                 {/* Botón de lápiz para mostrar/ocultar el formulario */}
                 <CreateTwitButton onClick={() => setIsFormVisible(!isFormVisible)}>
@@ -86,8 +84,8 @@ const Container = styled.div`
     align-items: center;
     justify-content: flex-start;
     padding: 20px;
-    padding-top: 80px; 
-    margin-left: 60px; 
+    padding-top: 80px;
+    margin-left: 60px;
     width: 100%;
 `;
 
@@ -114,7 +112,7 @@ const FormContainer = styled.div`
     gap: 10px;
     width: 300px;
     margin-bottom: 20px;
-    align-items: center; 
+    align-items: center;
 `;
 
 const Input = styled.input`
@@ -151,7 +149,7 @@ const TwitsContainer = styled.div`
     width: 80%;
     max-width: 600px;
     margin-top: 20px;
-    text-align: center; 
+    text-align: center;
 `;
 
 const TwitsList = styled.ul`
