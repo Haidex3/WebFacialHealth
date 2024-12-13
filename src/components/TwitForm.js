@@ -27,6 +27,7 @@ export default function TwitForm() {
             setUsername('');
             setDetails('');
             setIsFormVisible(false); // Ocultar el formulario después de crear el twit
+            window.location.reload(); // Recargar la página inmediatamente
         }
     };
 
@@ -74,8 +75,10 @@ export default function TwitForm() {
 
 // Estilos usando styled-components
 const Container = styled.div`
-    background-color: rgba(232, 218, 213, 1); /* Nuevo color */
-    color: #000;                              /* Negro */
+    background-image: url('/background-image.jpg'); /* Asignar la imagen de fondo desde la carpeta public */
+    background-size: cover;
+    background-position: center;
+    color: #000;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -140,6 +143,7 @@ const Button = styled.button`
 const TwitsContainer = styled.div`
     width: 80%;
     max-width: 600px;
+    margin-top: 20px;
 `;
 
 const TwitsList = styled.ul`
@@ -150,9 +154,8 @@ const TwitsList = styled.ul`
 const TwitItem = styled.li`
     padding: 10px;
     margin-bottom: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+    background-color: transparent; /* Hacer transparente el fondo del twit */
+    border: none; /* Eliminar el borde */
     font-size: 1.1rem;
 `;
 
