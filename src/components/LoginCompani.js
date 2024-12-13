@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { login } from '../api/script';
+import { getCompanyByName } from '../api/script';
 import styled from 'styled-components';
 
 const handleBackToTwit = () => {
@@ -7,11 +7,11 @@ const handleBackToTwit = () => {
 };
 
 const handleRegisterRedirect = () => {
-    window.location.href = '/register';
+    window.location.href = '/registerCompa';
 };
 
-const handleCompanyRedirect = () => {
-    window.location.href = '/LoginCompa';
+const handleLoginRedirect = () => {
+    window.location.href = '/login';
 };
 
 const Container = styled.div`
@@ -88,19 +88,6 @@ const RegisterLink = styled.span`
     }
 `;
 
-const CompanyButton = styled.div`
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    img {
-        width: 50px;
-        height: 50px;
-    }
-`;
-
 const ErrorMessage = styled.p`
     color: red;
     font-size: 0.9rem;
@@ -108,19 +95,13 @@ const ErrorMessage = styled.p`
     margin-top: 10px;
 `;
 
-function LoginForm() {
-    const [credentials, setCredentials] = useState({
-        username: '',
-        password: '',
-    });
+function LoginCompani() {
+    const [companyName, setCompanyName] = useState('');
     const [error, setError] = useState('');
+    const [companyExists, setCompanyExists] = useState(false);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setCredentials({
-            ...credentials,
-            [name]: value,
-        });
+        setCompanyName(e.target.value);
     };
 
     const handleSubmit = async (e) => {
@@ -128,43 +109,38 @@ function LoginForm() {
         setError('');
 
         try {
-            const response = await login(credentials);
-            console.log('Usuario logueado con éxito:', response);
+            const companyData = await getCompanyByName(companyName);
+            if (companyData) {
+                setCompanyExists(true);
+                localStorage.setItem('companyData', JSON.stringify(companyData));
+                window.location.href = '/compani-view';
+            } else {
+                setError('Compañía no encontrada');
+                setCompanyExists(false);
+            }
         } catch (err) {
-            setError('Credenciales incorrectas');
+            setError('Error al verificar la compañía');
         }
     };
 
     return (
         <Container>
             <Logo src="/path-to-logo.jpg" alt="Logo" />
-            <Title>SKINGLOW</Title>
+            <Title>SKINGLOW - Iniciar sesión como Compañía</Title>
             <Form onSubmit={handleSubmit}>
                 <Input
                     type="text"
-                    name="username"
-                    placeholder="Nombre de usuario"
-                    value={credentials.username}
+                    name="companyName"
+                    placeholder="Nombre de la Compañía"
+                    value={companyName}
                     onChange={handleInputChange}
                 />
-                <Input
-                    type="password"
-                    name="password"
-                    placeholder="Contraseña"
-                    value={credentials.password}
-                    onChange={handleInputChange}
-                />
-                <Button type="submit" onClick={handleBackToTwit}>Iniciar sesión</Button>
+                <Button type="submit">Iniciar sesión</Button>
                 {error && <ErrorMessage>{error}</ErrorMessage>}
-                <RegisterLink onClick={handleRegisterRedirect}>
-                    Registrarse
-                </RegisterLink>
-                <CompanyButton onClick={handleCompanyRedirect}>
-                    <img src="/icono.png" alt="Acceder como Empresa" />
-                </CompanyButton>
+                <RegisterLink onClick={handleRegisterRedirect}>Registrarse</RegisterLink>
             </Form>
         </Container>
     );
 }
 
-export default LoginForm;
+export default LoginCompani;

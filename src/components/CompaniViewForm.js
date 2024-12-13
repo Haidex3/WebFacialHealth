@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const CompaniViewForm = () => {
+    const [companyData, setCompanyData] = useState(null);
     const [openSection, setOpenSection] = useState(null);
+
+    // Obtener los datos de la compañía desde localStorage
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('companyData'));
+        setCompanyData(data);
+    }, []);
 
     const toggleSection = (section) => {
         setOpenSection(openSection === section ? null : section);
     };
 
+    if (!companyData) {
+        return <div>Cargando...</div>;
+    }
+
     return (
         <div style={styles.container}>
+            <img src={companyData.companyImageUrl} alt="Logo de la compañía" style={styles.logo} />
             <div style={styles.buttonContainer}>
                 {sections.map((section) => (
                     <div key={section.name}>
@@ -26,17 +38,14 @@ const CompaniViewForm = () => {
                 ))}
             </div>
             <div style={styles.socialMediaContainer}>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={styles.socialIcon}>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"
-                         style={styles.icon}/>
+                <a href={companyData.companyInstagramUrl} target="_blank" rel="noopener noreferrer" style={styles.socialIcon}>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style={styles.icon} />
                 </a>
-                <a href="https://x.com" target="_blank" rel="noopener noreferrer" style={styles.socialIcon}>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="X"
-                         style={styles.icon}/>
+                <a href={companyData.companyTwitterUrl} target="_blank" rel="noopener noreferrer" style={styles.socialIcon}>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="X" style={styles.icon} />
                 </a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style={styles.socialIcon}>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-                         alt="Facebook" style={styles.icon}/>
+                <a href={companyData.companyFacebookUrl} target="_blank" rel="noopener noreferrer" style={styles.socialIcon}>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style={styles.icon} />
                 </a>
             </div>
         </div>
@@ -70,6 +79,11 @@ const styles = {
         height: "100vh",
         backgroundColor: "#f9f9f9",
         padding: "20px",
+    },
+    logo: {
+        width: "140px",
+        height: "auto",
+        marginBottom: "20px",
     },
     buttonContainer: {
         display: "flex",
