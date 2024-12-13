@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
+import TwitForm from './components/TwitForm';
 import styled from 'styled-components';
 
 const ButtonContainer = styled.div`
@@ -13,52 +15,26 @@ const Button = styled.button`
     background: none;
     border: none;
     color: #007bff;
-    text-decoration: underline; 
+    text-decoration: underline;
     font-size: 1rem;
     cursor: pointer;
     padding: 0;
     &:hover {
-        color: #0056b3; 
+        color: #0056b3;
     }
 `;
 
-function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isRegistering, setIsRegistering] = useState(false);
-
-    const handleLoginSuccess = (response) => {
-        console.log('Login successful:', response);
-        setIsLoggedIn(true);
-    };
-
-    const handleRegisterSuccess = (response) => {
-        console.log('Registration successful:', response);
-        setIsRegistering(false);
-    };
-
+function AppWithRouter() {
     return (
-        <div>
-            {!isLoggedIn ? (
-                <div>
-                    {isRegistering ? (
-                        <RegisterForm onRegisterSuccess={handleRegisterSuccess} />
-                    ) : (
-                        <LoginForm onLoginSuccess={handleLoginSuccess} />
-                    )}
-                    <ButtonContainer>
-                        <Button onClick={() => setIsRegistering(!isRegistering)}>
-                            {isRegistering ? '' : '¿No tienes una cuenta? Registrate'}
-                        </Button>
-                    </ButtonContainer>
-                </div>
-            ) : (
-                <div>
-                    <h2>Welcome back!</h2>
-                    {/*  */}
-                </div>
-            )}
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/register" element={<RegisterForm />} />
+                <Route path="/twit" element={<TwitForm />} />
+                <Route path="/" element={<LoginForm />} />
+            </Routes>
+        </Router>
     );
 }
 
-export default App;
+export default AppWithRouter;

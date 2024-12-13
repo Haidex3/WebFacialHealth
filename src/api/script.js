@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+
 const apiUrl = 'http://localhost:8081';
 
 export async function login(credentials) {
@@ -65,4 +67,37 @@ export async function register(userData) {
     }
 }
 
+export async function getAllTwits() {
+    try {
+        const response = await fetch(`${apiUrl}/twits/getAllTwits`);
+        if (response.ok) {
+            return await response.json();
+        } else {
+            throw new Error('Error al obtener los twits');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return [];
+    }
+}
+
+export async function createTwit(username, details) {
+    try {
+        const response = await fetch(`${apiUrl}/twits/createTwit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, details }),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            throw new Error('Error al crear el twit');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return null;
+    }
+}
 

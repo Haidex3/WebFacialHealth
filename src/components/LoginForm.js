@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { login } from '../api/script';
 import styled from 'styled-components';
 
+const handleBackToTwit = () => {
+    window.location.href = '/twit';
+};
+
 const Container = styled.div`
     display: flex;
     justify-content: center;
@@ -116,7 +120,7 @@ function LoginForm() {
                     value={credentials.password}
                     onChange={handleInputChange}
                 />
-                <Button type="submit">Iniciar sesión</Button>
+                <Button type="submit" onClick={handleBackToTwit}>Iniciar sesión</Button>
                 {error && <ErrorMessage>{error}</ErrorMessage>}
             </Form>
         </Container>
