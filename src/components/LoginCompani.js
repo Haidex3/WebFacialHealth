@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getCompanyByName } from '../api/script';
 import styled from 'styled-components';
 
@@ -95,10 +95,30 @@ const ErrorMessage = styled.p`
     margin-top: 10px;
 `;
 
+const LoginButton = styled.button`
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    padding: 0;
+    img {
+        width: 30px;
+        height: auto;
+    }
+`;
+
 function LoginCompani() {
     const [companyName, setCompanyName] = useState('');
     const [error, setError] = useState('');
     const [companyExists, setCompanyExists] = useState(false);
+    const [companyData, setCompanyData] = useState(null);
+
+    useEffect(() => {
+        const storedCompanyData = localStorage.getItem('companyData');
+        if (storedCompanyData) {
+            setCompanyData(JSON.parse(storedCompanyData));
+        }
+    }, []);
 
     const handleInputChange = (e) => {
         setCompanyName(e.target.value);
@@ -113,7 +133,7 @@ function LoginCompani() {
             if (companyData) {
                 setCompanyExists(true);
                 localStorage.setItem('companyData', JSON.stringify(companyData));
-                window.location.href = '/compani-view';
+                window.location.href = '/CompaniView';
             } else {
                 setError('Compañía no encontrada');
                 setCompanyExists(false);
@@ -125,8 +145,8 @@ function LoginCompani() {
 
     return (
         <Container>
-            <Logo src="/path-to-logo.jpg" alt="Logo" />
-            <Title>SKINGLOW - Iniciar sesión como Compañía</Title>
+            <Logo src={companyData?.companyImageUrl || "/path-to-logo.jpg"} alt="Logo" />
+            <Title>{companyData ? companyData.companyName : 'SKINGLOW - Iniciar sesión como Compañía'}</Title>
             <Form onSubmit={handleSubmit}>
                 <Input
                     type="text"
@@ -138,7 +158,20 @@ function LoginCompani() {
                 <Button type="submit">Iniciar sesión</Button>
                 {error && <ErrorMessage>{error}</ErrorMessage>}
                 <RegisterLink onClick={handleRegisterRedirect}>Registrarse</RegisterLink>
+                <LoginButton onClick={handleLoginRedirect}>
+                    <img src="/User.jpg" alt="User Icon" />
+                </LoginButton>
             </Form>
+            {companyData && (
+                <div>
+                    <a href={companyData.companyInstagramUrl} target="_blank" rel="noopener noreferrer">
+                    </a>
+                    <a href={companyData.companyFacebookUrl} target="_blank" rel="noopener noreferrer">
+                    </a>
+                    <a href={companyData.companyTwitterUrl} target="_blank" rel="noopener noreferrer">
+                    </a>
+                </div>
+            )}
         </Container>
     );
 }
