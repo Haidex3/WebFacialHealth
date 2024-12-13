@@ -1,18 +1,46 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaHome, FaBook, FaShoppingCart, FaUserFriends, FaInfoCircle, FaQuestionCircle, FaSignOutAlt, FaBars, FaChartLine } from 'react-icons/fa';
+import { FaHome, FaBook, FaShoppingCart, FaUserFriends, FaInfoCircle, FaQuestionCircle, FaSignOutAlt, FaBars, FaChartLine, FaUser } from 'react-icons/fa';
 
 export default function MenuForm() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [userInfoOpen, setUserInfoOpen] = useState(false);
     const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     };
 
+    const toggleUserInfo = () => {
+        setUserInfoOpen(!userInfoOpen);
+    };
+
+    const user=null;
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+        const user = JSON.parse(storedUserData);
+    }
+
+
     return (
         <Container>
+            {/* Barra superior */}
+            <TopBar>
+                <UserButton onClick={toggleUserInfo}>
+                    <FaUser size={24} color="#fff" />
+                </UserButton>
+            </TopBar>
+
+            {userInfoOpen && (
+                <UserInfo>
+                    <p><strong>Nombre de usuario:</strong> {user[0]}</p>
+                    <p><strong>Email:</strong> {user[2]}</p>
+                    <p><strong>Edad:</strong> {user[3]}</p>
+                    <p><strong>Género:</strong> {user[4]}</p>
+                </UserInfo>
+            )}
+
             {/* Menú lateral */}
             <Sidebar isOpen={sidebarOpen}>
                 {/* Menú vertical que se despliega al hacer clic en el botón */}
@@ -66,6 +94,36 @@ const Container = styled.div`
     position: relative;
 `;
 
+const TopBar = styled.div`
+    width: 100%;
+    background-color: #333;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 50px; /* Añadido para fijar la altura */
+`;
+
+const UserButton = styled.div`
+    cursor: pointer;
+    margin-right: 20px;
+`;
+
+const UserInfo = styled.div`
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 150;
+`;
+
 const MenuBar = styled.nav`
     width: 100%;
     background-color: rgba(178, 218, 250, 1);
@@ -74,10 +132,11 @@ const MenuBar = styled.nav`
     align-items: center;
     padding: 10px 0;
     position: fixed;
-    top: 0;
+    top: 50px; 
     left: 0;
     z-index: 100;
     border-bottom: 1px solid #ccc;
+    height: 50px;
 `;
 
 const MenuItem = styled.div`
@@ -103,14 +162,14 @@ const MenuItem = styled.div`
 const SidebarToggle = styled.div`
     cursor: pointer;
     position: fixed;
-    top: 20px;
+    top: 80px;
     left: 20px;
     z-index: 2000;
 `;
 
 const Sidebar = styled.div`
     position: fixed;
-    top: 0;
+    top: 64px;
     left: ${({ isOpen }) => (isOpen ? '0' : '-270px')};
     height: 100%;
     width: 175px;
@@ -123,7 +182,6 @@ const Sidebar = styled.div`
     padding-top: 20px;
     padding-left: 20px;
     overflow: hidden;
-    margin-top: 64px; 
 `;
 
 const Text = styled.span`

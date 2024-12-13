@@ -13,14 +13,14 @@ export async function login(credentials) {
             body: JSON.stringify(credentials),
         });
 
-        console.log(response.ok);
-
         if (response.ok) {
-            return response;
+            const responseData = await response.json();
+            console.log("Inicio de sesión exitoso", responseData);
+            return responseData;
         } else {
-            const errorData = await response.text();
+            const errorData = await response.json();
             console.error("Error al hacer login:", errorData);
-            throw new Error(errorData);
+            throw new Error(errorData.message || "Error desconocido");
         }
     } catch (error) {
         console.error("Hubo un problema con la petición:", error);

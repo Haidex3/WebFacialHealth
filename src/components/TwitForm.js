@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { getAllTwits, createTwit } from '../api/script';
 import styled from 'styled-components';
-import MenuForm from './MenuForm'; // Menú horizontal
-import { FaPen } from 'react-icons/fa'; // Icono de lápiz
+import MenuForm from './MenuForm';
+import { FaPen } from 'react-icons/fa';
 
 export default function TwitForm() {
     const [twits, setTwits] = useState([]);
-    const [username, setUsername] = useState('');
     const [details, setDetails] = useState('');
-    const [isFormVisible, setIsFormVisible] = useState(false); // Controla la visibilidad del formulario
+    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [username, setUsername] = useState('');
 
     useEffect(() => {
         const fetchTwits = async () => {
@@ -16,18 +16,28 @@ export default function TwitForm() {
             setTwits(allTwits);
         };
 
+        const storedUserData = localStorage.getItem('userData');
+        if (storedUserData) {
+            const user = JSON.parse(storedUserData);
+            console.log(user)
+            setUsername(user[0]);
+        }
+
         fetchTwits();
     }, []);
 
     const handleCreateTwit = async () => {
+        if (!details.trim()) {
+            alert('El mensaje no puede estar vacío.');
+            return;
+        }
+
         const newTwit = await createTwit(username, details);
 
         if (newTwit) {
-            setTwits(prevTwits => [...prevTwits, newTwit]);
-            setUsername('');
+            setTwits((prevTwits) => [...prevTwits, newTwit]);
             setDetails('');
             setIsFormVisible(false); // Ocultar el formulario después de crear el twit
-            window.location.reload(); // Recargar la página inmediatamente
         }
     };
 
@@ -42,12 +52,9 @@ export default function TwitForm() {
 
                 {isFormVisible && (
                     <FormContainer>
-                        <Input
-                            type="text"
-                            placeholder="Nombre de usuario"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
+                        <UserDisplay>
+                            <span>Usuario:</span> <strong>{username}</strong>
+                        </UserDisplay>
                         <Textarea
                             placeholder="Escribe tu mensaje"
                             value={details}
@@ -86,7 +93,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: flex-start;
     padding: 20px;
-    padding-top: 50px;
+    padding-top: 500px;
     width: 100%;
 `;
 
@@ -116,12 +123,14 @@ const FormContainer = styled.div`
     align-items: center;
 `;
 
-const Input = styled.input`
-    padding: 10px;
+const UserDisplay = styled.div`
     font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: left;
     width: 100%;
+    span {
+        font-weight: bold;
+    }
 `;
 
 const Textarea = styled.textarea`

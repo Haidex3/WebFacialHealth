@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-import { login } from '../api/script';
+import { login } from '../api/script'; // Asume que `login` ahora devuelve información detallada del usuario
 import styled from 'styled-components';
-
-const handleBackToTwit = () => {
-    window.location.href = '/twit';
-};
 
 const handleRegisterRedirect = () => {
     window.location.href = '/register';
@@ -114,6 +110,7 @@ function LoginForm() {
         password: '',
     });
     const [error, setError] = useState('');
+    const [userData, setUserData] = useState(null);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -128,10 +125,16 @@ function LoginForm() {
         setError('');
 
         try {
-            const response = await login(credentials);
-            console.log('Usuario logueado con éxito:', response);
+            const responseData = await login(credentials);
+            if (responseData && responseData.status === 'success') {
+                setUserData(responseData.user);
+                localStorage.setItem('userData', JSON.stringify(responseData.user));
+                window.location.href = '/twit';
+            } else {
+                setError(responseData.message || 'Credenciales incorrectas');
+            }
         } catch (err) {
-            setError('Credenciales incorrectas');
+            setError('Error al iniciar sesión: ' + err.message);
         }
     };
 
@@ -154,7 +157,7 @@ function LoginForm() {
                     value={credentials.password}
                     onChange={handleInputChange}
                 />
-                <Button type="submit" onClick={handleBackToTwit}>Iniciar sesión</Button>
+                <Button type="submit">Iniciar sesión</Button>
                 {error && <ErrorMessage>{error}</ErrorMessage>}
                 <RegisterLink onClick={handleRegisterRedirect}>
                     Registrarse
