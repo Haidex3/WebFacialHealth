@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-route
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import TwitForm from './components/TwitForm';
+import TutorialsForm from './components/TutorialsForm';
+import ProductsForm from './components/ProductsForm';
 import styled from 'styled-components';
 
 const ButtonContainer = styled.div`
@@ -31,6 +33,8 @@ function AppWithRouter() {
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/register" element={<RegisterForm />} />
                 <Route path="/twit" element={<TwitForm />} />
+                <Route path="/tutorials" element={<TutorialsForm />} />
+                <Route path="/products" element={<ProductsForm />} />
                 <Route path="/" element={<LoginForm />} />
             </Routes>
         </Router>

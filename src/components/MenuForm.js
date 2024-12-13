@@ -12,11 +12,11 @@ export default function MenuForm() {
                 <FaHome size={24} />
                 <span>Inicio</span>
             </MenuItem>
-            <MenuItem onClick={() => navigate('/tutorialsForm')}>
+            <MenuItem onClick={() => navigate('/tutorials')}>
                 <FaBook size={24} />
                 <span>Tutoriales</span>
             </MenuItem>
-            <MenuItem onClick={() => navigate('/productsForm')}>
+            <MenuItem onClick={() => navigate('/products')}>
                 <FaShoppingCart size={24} />
                 <span>Productos</span>
             </MenuItem>
