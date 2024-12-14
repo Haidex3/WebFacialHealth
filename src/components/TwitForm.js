@@ -41,60 +41,113 @@ export default function TwitForm() {
         }
     };
 
-
     return (
         <>
             <MenuForm /> {/* Menú horizontal */}
             <Container>
-                <CreateTwitButton onClick={() => setIsFormVisible(!isFormVisible)}>
-                    <FaPen />
-                </CreateTwitButton>
+                {/* Columna izquierda para imágenes informativas */}
+                <SideImageLeft>
+                    <img src="/informativo1.jpg" alt="Informativo 1" />
+                    <img src="/informativo2.jpg" alt="Informativo 2" />
+                    <img src="/informativo3.jpg" alt="Informativo 3" />
+                    <img src="/informativo4.WEBP" alt="Informativo 4" />
+                </SideImageLeft>
 
-                {isFormVisible && (
-                    <FormContainer>
-                        <UserDisplay>
-                            <span>Usuario:</span> <strong>{username}</strong>
-                        </UserDisplay>
-                        <Textarea
-                            placeholder="Escribe tu mensaje"
-                            value={details}
-                            onChange={(e) => setDetails(e.target.value)}
-                        />
-                        <Button onClick={handleCreateTwit}>Crear Twit</Button>
-                    </FormContainer>
-                )}
+                {/* Sección central con los Twits */}
+                <MainContent>
+                    <CreateTwitButton onClick={() => setIsFormVisible(!isFormVisible)}>
+                        <FaPen />
+                    </CreateTwitButton>
 
-                <TwitsContainer>
-                    <h1>Lista de Twits</h1>
-                    <TwitsList>
-                        {twits.map((twit, index) => (
-                            <TwitItem key={index}>
-                                <strong>{twit.username}</strong>
-                                <Content>{twit.details}</Content>
-                            </TwitItem>
-                        ))}
-                    </TwitsList>
-                </TwitsContainer>
+                    {isFormVisible && (
+                        <FormContainer>
+                            <UserDisplay>
+                                <span>Usuario:</span> <strong>{username}</strong>
+                            </UserDisplay>
+                            <Textarea
+                                placeholder="Escribe tu mensaje"
+                                value={details}
+                                onChange={(e) => setDetails(e.target.value)}
+                            />
+                            <Button onClick={handleCreateTwit}>Crear Twit</Button>
+                        </FormContainer>
+                    )}
+
+                    <TwitsContainer>
+                        <h1>Social</h1>
+                        <TwitsList>
+                            {twits.map((twit, index) => (
+                                <TwitItem key={index}>
+                                    <strong>{twit.username}</strong>
+                                    <Content>{twit.details}</Content>
+                                </TwitItem>
+                            ))}
+                        </TwitsList>
+                    </TwitsContainer>
+                </MainContent>
+
+                {/* Columna derecha para imágenes publicitarias */}
+                <SideImageRight>
+                    <img src="/publicidad1.WEBP" alt="Publicidad 1"/>
+                    <img src="/publicidad2.avif" alt="Publicidad 2"/>
+                    <img src="/publicidad3.jpg" alt="Publicidad 3"/>
+                    <img src="/publicidad4.WEBP" alt="Publicidad 4"/>
+                    <img src="/publicidad5.WEBP" alt="Publicidad 5"/>
+                </SideImageRight>
             </Container>
         </>
     );
 }
 
+
 const Container = styled.div`
-    margin-left: -20px;
-    margin-right: -8px;
-    background-image: url('/background-image.jpg');
-    background-size: cover;
-    background-position: center;
-    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     min-height: 100vh;
+    background-image: url('/background-image.jpg');
+    background-size: 120% 120%;  
+    background-position: center;
+    background-repeat: no-repeat;  /* Evita que el fondo se repita */
+    color: #000;
+    padding-top: 120px;
+    width: 100%;
+`;
+
+
+const SideImageLeft = styled.div`
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+`;
+
+const SideImageRight = styled.div`
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+`;
+
+const MainContent = styled.div`
+    flex: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 20px;
-    padding-top: 120px;
-    width: 100%;
+    width: 80%;
 `;
 
 const CreateTwitButton = styled.button`
