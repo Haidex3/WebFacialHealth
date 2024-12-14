@@ -6,11 +6,12 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh;
+    min-height: 100vh;  // Cambiar height por min-height para que el contenedor ocupe toda la pantalla
     background-image: url('/FondoInicio.jpg');
     background-size: cover;
     background-position: center;
     flex-direction: column;
+    padding: 20px; // Para evitar que el contenido toque los bordes de la pantalla en móviles
 `;
 
 const Logo = styled.img`
