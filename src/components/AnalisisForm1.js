@@ -147,7 +147,7 @@ const Container = styled.div`
 
 const Content = styled.div`
     padding: 20px;
-    margin-top: 60px;
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -157,6 +157,7 @@ const Content = styled.div`
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
 `;
 
 const FileInput = styled.input`
@@ -171,6 +172,7 @@ const ImageContainer = styled.div`
     max-width: 100%;
     max-height: 80vh;
     margin-top: 20px;
+    
 `;
 
 const Image = styled.img`
@@ -204,7 +206,7 @@ const RightSidebar = styled.div`
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 1;
-    margin-top: 60px;
+    margin-top: 100px;
 `;
 
 const GraphButton = styled.button`
