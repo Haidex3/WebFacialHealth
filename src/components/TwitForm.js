@@ -78,7 +78,7 @@ export default function TwitForm() {
                         <TwitsList>
                             {twits.map((twit, index) => (
                                 <TwitItem key={index}>
-                                    <strong>{twit.username}</strong>
+                                    <TwitUsername>{twit.username}</TwitUsername>
                                     <Content>{twit.details}</Content>
                                 </TwitItem>
                             ))}
@@ -106,14 +106,13 @@ const Container = styled.div`
     align-items: flex-start;
     min-height: 100vh;
     background-image: url('/background-image.jpg');
-    background-size: 120% 120%;  
+    background-size: 120% 120%;
     background-position: center;
     background-repeat: no-repeat;  /* Evita que el fondo se repita */
     color: #000;
     padding-top: 120px;
     width: 100%;
 `;
-
 
 const SideImageLeft = styled.div`
     flex: 1;
@@ -221,14 +220,22 @@ const TwitsList = styled.ul`
 `;
 
 const TwitItem = styled.li`
-    padding: 10px;
+    padding: 15px;
     margin-bottom: 10px;
-    background-color: transparent;
-    border: none;
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco con opacidad de 70% */
+    border: 1px solid #ccc; /* Opcional: agrega un borde si lo deseas */
+    border-radius: 8px; /* Bordes redondeados */
     font-size: 1.1rem;
+    backdrop-filter: blur(5px); /* Agrega un efecto de desenfoque si lo deseas */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave para más contraste */
+`;
+
+const TwitUsername = styled.strong`
+    font-size: 1.5rem; /* Ajusta este valor para el tamaño del nombre */
+    font-weight: bold;
 `;
 
 const Content = styled.p`
     margin: 5px 0 0;
-    font-size: 1rem;
+    font-size: 1.4rem; /* Ajusta este valor para el tamaño del mensaje */
 `;
