@@ -137,15 +137,13 @@ const Container = styled.div`
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    min-height: 100%;
-    width: 100%;
+    min-height: 100vh;
     position: relative;
     background-image: url('fondoAnalisis.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 `;
-
 
 const Content = styled.div`
     padding: 20px;
