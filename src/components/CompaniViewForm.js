@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllTwits } from '../api/script';
+import { FaSignOutAlt } from "react-icons/fa";
+
 
 const CompanyViewForm = () => {
     const [companyData, setCompanyData] = useState(null);
@@ -54,13 +56,13 @@ const CompanyViewForm = () => {
     return (
         <div style={styles.container}>
             <button onClick={handleLogout} style={styles.logoutButton}>
-                <span style={styles.arrow}>➤</span>
-                <span style={styles.logoutText}>Cerrar sesión</span>
-            </button>
-            <div style={styles.logoAndNameContainer}>
-                <div style={styles.logoContainer}>
-                    <img
-                        src={companyData.data.companyImageUrl || "/default-logo.png"}
+                <FaSignOutAlt style={{color: "#000", fontSize: "20px"}}/>
+            <span style={styles.logoutText}>Cerrar sesión</span>
+        </button>
+    <div style={styles.logoAndNameContainer}>
+        <div style={styles.logoContainer}>
+            <img
+                src={companyData.data.companyImageUrl || "/default-logo.png"}
                         alt="Company Logo"
                         style={styles.logo}
                     />
@@ -152,7 +154,7 @@ const styles = {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        backgroundColor: "#f9f9f9",
+        backgroundColor: "#c0c0c0",
         padding: "0",
         margin: "0",
         marginLeft: "-8px",
@@ -193,7 +195,7 @@ const styles = {
         display: "flex",
         flexDirection: "column",
         gap: "10px",
-        backgroundColor: "#fff",
+        backgroundColor: "#c0c0c0",
         padding: "20px",
         borderRadius: "10px",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
@@ -218,7 +220,7 @@ const styles = {
     content: {
         marginTop: "10px",
         padding: "10px",
-        backgroundColor: "#f1f1f1",
+        backgroundColor: "#d2c4aa",
         borderRadius: "5px",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     },
@@ -239,17 +241,7 @@ const styles = {
         position: "absolute",
         top: "20px",
         left: "20px",
-        padding: "10px 20px",
-        backgroundColor: "#FF4D4D",
-        color: "#fff",
-        border: "none",
-        borderRadius: "5px",
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "40px",
-        height: "40px",
+
     },
     logoutText: {
         display: "none",
@@ -270,7 +262,7 @@ const styles = {
         flexDirection: "column",
         alignItems: "center",
         padding: "20px",
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backgroundColor: "rgba(247,244,239,255)",
         borderRadius: "10px",
         boxShadow: "none",
         width: "100%",

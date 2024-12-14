@@ -35,17 +35,17 @@ export default function TwitForm() {
         const newTwit = await createTwit(username, details);
 
         if (newTwit) {
-            setTwits((prevTwits) => [...prevTwits, newTwit]);
             setDetails('');
-            setIsFormVisible(false); // Ocultar el formulario después de crear el twit
+            setIsFormVisible(false);
+            window.location.reload();
         }
     };
+
 
     return (
         <>
             <MenuForm /> {/* Menú horizontal */}
             <Container>
-                {/* Botón de lápiz para mostrar/ocultar el formulario */}
                 <CreateTwitButton onClick={() => setIsFormVisible(!isFormVisible)}>
                     <FaPen />
                 </CreateTwitButton>
@@ -93,14 +93,14 @@ const Container = styled.div`
     align-items: center;
     justify-content: flex-start;
     padding: 20px;
-    padding-top: 500px;
+    padding-top: 120px;
     width: 100%;
 `;
 
 const CreateTwitButton = styled.button`
     position: fixed;
     bottom: 30px;
-    left: 200px; /* Mover el botón hacia la derecha */
+    left: 200px;
     background-color: #4CAF50;
     color: white;
     border: none;

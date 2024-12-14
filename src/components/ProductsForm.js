@@ -41,16 +41,16 @@ export default function ProductsForm() {
 const MainContent = styled.div`
     margin-left: -20px;
     margin-right: -20px;
-    margin-top: 40px;  /* Deja espacio para el menú superior */
-    padding: 20px;
+    margin-top: 40px; 
+    padding: 105px;
     background-image: url('/background-image.jpg');
     background-size: cover;
     background-position: center;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra el contenido horizontalmente */
-    justify-content: flex-start; /* Alinea desde la parte superior */
+    align-items: center; 
+    justify-content: flex-start; 
 `;
 
 const ProductsList = styled.div`
@@ -60,7 +60,7 @@ const ProductsList = styled.div`
     margin-top: 20px;
     width: 100%;
     max-width: 800px;
-    align-items: center; /* Centra las tarjetas de productos */
+    align-items: center;
 `;
 
 const ProductCard = styled.div`
@@ -68,12 +68,12 @@ const ProductCard = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo más suave */
+    background-color: rgba(255, 255, 255, 0.8); 
     border-radius: 10px;
-    box-shadow: none; /* Sin borde o sombra */
+    box-shadow: none;
     transition: transform 0.3s ease;
-    width: 100%; /* Asegura que las tarjetas ocupen todo el ancho disponible */
-    max-width: 600px; /* Define un ancho máximo para las tarjetas */
+    width: 100%; 
+    max-width: 600px;
     &:hover {
         transform: translateY(-5px);
     }

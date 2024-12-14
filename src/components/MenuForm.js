@@ -16,11 +16,8 @@ export default function MenuForm() {
         setUserInfoOpen(!userInfoOpen);
     };
 
-    const user=null;
     const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-        const user = JSON.parse(storedUserData);
-    }
+    const user = JSON.parse(storedUserData);
 
 
     return (
@@ -43,7 +40,6 @@ export default function MenuForm() {
 
             {/* Menú lateral */}
             <Sidebar isOpen={sidebarOpen}>
-                {/* Menú vertical que se despliega al hacer clic en el botón */}
                 <MenuItem onClick={() => navigate('/twit')}>
                     <FaUserFriends size={20} />
                     <Text isOpen={sidebarOpen}>Social</Text>
@@ -105,7 +101,7 @@ const TopBar = styled.div`
     top: 0;
     left: 0;
     z-index: 100;
-    height: 50px; /* Añadido para fijar la altura */
+    height: 50px; 
 `;
 
 const UserButton = styled.div`
@@ -136,7 +132,7 @@ const MenuBar = styled.nav`
     left: 0;
     z-index: 100;
     border-bottom: 1px solid #ccc;
-    height: 50px;
+    height: 35px;
 `;
 
 const MenuItem = styled.div`
@@ -146,7 +142,7 @@ const MenuItem = styled.div`
     cursor: pointer;
     color: #000;
     text-decoration: none;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     padding-left: 20px;
 
     &:hover {
@@ -162,14 +158,14 @@ const MenuItem = styled.div`
 const SidebarToggle = styled.div`
     cursor: pointer;
     position: fixed;
-    top: 80px;
+    top: 65px;
     left: 20px;
     z-index: 2000;
 `;
 
 const Sidebar = styled.div`
     position: fixed;
-    top: 64px;
+    top: 50px;
     left: ${({ isOpen }) => (isOpen ? '0' : '-270px')};
     height: 100%;
     width: 175px;
@@ -178,9 +174,10 @@ const Sidebar = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    gap: 20px; 
     transition: left 0.3s ease-in-out;
-    padding-top: 20px;
-    padding-left: 20px;
+    padding-top: 60px;
+    padding-left: 10px;
     overflow: hidden;
 `;
 

@@ -38,15 +38,15 @@ const MainContent = styled.div`
     margin-top: 60px;
     margin-left: -20px;
     margin-right: -20px;
-    padding: 20px;
+    padding: 90px;
     background-image: url('/background-image.jpg');
     background-size: cover;
     background-position: center;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra el contenido horizontalmente */
-    justify-content: flex-start; /* Alinea el contenido desde el inicio */
+    align-items: center; 
+    justify-content: flex-start;
 `;
 
 const VideoList = styled.div`
@@ -56,7 +56,7 @@ const VideoList = styled.div`
     margin-top: 20px;
     width: 100%;
     max-width: 800px;
-    align-items: center; /* Centra los videos dentro de la lista */
+    align-items: center;
 `;
 
 const VideoItem = styled.div`
