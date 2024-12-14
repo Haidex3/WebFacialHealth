@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 
 const apiUrl = 'http://localhost:8081';
 
@@ -14,21 +13,20 @@ export async function login(credentials) {
             body: JSON.stringify(credentials),
         });
 
-        console.log(response.ok);
-
         if (response.ok) {
-            return response;
+            const responseData = await response.json();
+            console.log("Inicio de sesión exitoso", responseData);
+            return responseData;
         } else {
-            const errorData = await response.text();
+            const errorData = await response.json();
             console.error("Error al hacer login:", errorData);
-            throw new Error(errorData);
+            throw new Error(errorData.message || "Error desconocido");
         }
     } catch (error) {
         console.error("Hubo un problema con la petición:", error);
         throw error;
     }
 }
-
 
 export async function register(userData) {
     try {
@@ -101,3 +99,50 @@ export async function createTwit(username, details) {
     }
 }
 
+export async function getAllCompanies() {
+    try {
+        const response = await fetch(`${apiUrl}/companies/getAll`);
+        if (response.ok) {
+            return await response.json();
+        } else {
+            throw new Error('Error al obtener las compañías');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return [];
+    }
+}
+
+export async function registerCompany(company) {
+    try {
+        const response = await fetch(`${apiUrl}/companies/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(company),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            throw new Error('Error al registrar la compañía');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return null;
+    }
+}
+
+export async function getCompanyByName(name) {
+    try {
+        const response = await fetch(`${apiUrl}/companies/getByName?name=${encodeURIComponent(name)}`);
+        if (response.ok) {
+            return await response.json();
+        } else {
+            throw new Error('Error al obtener la compañía');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return null;
+    }
+}

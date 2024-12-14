@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { getAllTwits, createTwit } from '../api/script';
 import styled from 'styled-components';
-import MenuForm from './MenuForm'; // Importa el menú
-import { FaPen } from 'react-icons/fa'; // Importa el icono de lápiz
+import MenuForm from './MenuForm';
+import { FaPen } from 'react-icons/fa';
 
 export default function TwitForm() {
     const [twits, setTwits] = useState([]);
-    const [username, setUsername] = useState('');
     const [details, setDetails] = useState('');
-    const [isFormVisible, setIsFormVisible] = useState(false); // Controla la visibilidad del formulario
+    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [username, setUsername] = useState('');
 
     useEffect(() => {
         const fetchTwits = async () => {
@@ -16,38 +16,45 @@ export default function TwitForm() {
             setTwits(allTwits);
         };
 
+        const storedUserData = localStorage.getItem('userData');
+        if (storedUserData) {
+            const user = JSON.parse(storedUserData);
+            console.log(user)
+            setUsername(user[0]);
+        }
+
         fetchTwits();
     }, []);
 
     const handleCreateTwit = async () => {
+        if (!details.trim()) {
+            alert('El mensaje no puede estar vacío.');
+            return;
+        }
+
         const newTwit = await createTwit(username, details);
 
         if (newTwit) {
-            setTwits(prevTwits => [...prevTwits, newTwit]);
-            setUsername('');
             setDetails('');
-            setIsFormVisible(false); // Ocultar el formulario después de crear el twit
-            window.location.reload(); // Recargar la página inmediatamente
+            setIsFormVisible(false);
+            window.location.reload();
         }
     };
 
+
     return (
         <>
-            <MenuForm /> {/* Agrega el menú */}
+            <MenuForm /> {/* Menú horizontal */}
             <Container>
-                {/* Botón de lápiz para mostrar/ocultar el formulario */}
                 <CreateTwitButton onClick={() => setIsFormVisible(!isFormVisible)}>
                     <FaPen />
                 </CreateTwitButton>
 
                 {isFormVisible && (
                     <FormContainer>
-                        <Input
-                            type="text"
-                            placeholder="Nombre de usuario"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
+                        <UserDisplay>
+                            <span>Usuario:</span> <strong>{username}</strong>
+                        </UserDisplay>
                         <Textarea
                             placeholder="Escribe tu mensaje"
                             value={details}
@@ -58,7 +65,7 @@ export default function TwitForm() {
                 )}
 
                 <TwitsContainer>
-                    <h2>Lista de Twits</h2>
+                    <h1>Lista de Twits</h1>
                     <TwitsList>
                         {twits.map((twit, index) => (
                             <TwitItem key={index}>
@@ -73,9 +80,10 @@ export default function TwitForm() {
     );
 }
 
-// Estilos usando styled-components
 const Container = styled.div`
-    background-image: url('/background-image.jpg'); /* Asignar la imagen de fondo desde la carpeta public */
+    margin-left: -20px;
+    margin-right: -8px;
+    background-image: url('/background-image.jpg');
     background-size: cover;
     background-position: center;
     color: #000;
@@ -85,13 +93,14 @@ const Container = styled.div`
     align-items: center;
     justify-content: flex-start;
     padding: 20px;
-    padding-top: 80px; /* Respeta la altura del menú */
+    padding-top: 120px;
+    width: 100%;
 `;
 
 const CreateTwitButton = styled.button`
     position: fixed;
     bottom: 30px;
-    left: 30px;
+    left: 200px;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -111,13 +120,17 @@ const FormContainer = styled.div`
     gap: 10px;
     width: 300px;
     margin-bottom: 20px;
+    align-items: center;
 `;
 
-const Input = styled.input`
-    padding: 10px;
+const UserDisplay = styled.div`
     font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: left;
+    width: 100%;
+    span {
+        font-weight: bold;
+    }
 `;
 
 const Textarea = styled.textarea`
@@ -126,6 +139,7 @@ const Textarea = styled.textarea`
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: vertical;
+    width: 100%;
 `;
 
 const Button = styled.button`
@@ -135,6 +149,7 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 100%;
     &:hover {
         background-color: #45a049;
     }
@@ -144,6 +159,7 @@ const TwitsContainer = styled.div`
     width: 80%;
     max-width: 600px;
     margin-top: 20px;
+    text-align: center;
 `;
 
 const TwitsList = styled.ul`
@@ -154,8 +170,8 @@ const TwitsList = styled.ul`
 const TwitItem = styled.li`
     padding: 10px;
     margin-bottom: 10px;
-    background-color: transparent; /* Hacer transparente el fondo del twit */
-    border: none; /* Eliminar el borde */
+    background-color: transparent;
+    border: none;
     font-size: 1.1rem;
 `;
 

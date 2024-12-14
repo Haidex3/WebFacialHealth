@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
-import { login } from '../api/script';
+import { login } from '../api/script'; // Asume que `login` ahora devuelve información detallada del usuario
 import styled from 'styled-components';
 
-const handleBackToTwit = () => {
-    window.location.href = '/twit';
+const handleRegisterRedirect = () => {
+    window.location.href = '/register';
+};
+
+const handleCompanyRedirect = () => {
+    window.location.href = '/LoginCompa';
 };
 
 const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh; 
-    background-color: #f0f0f0; 
+    height: 90vh;
+    background-image: url('/FondoInicio.jpg');
+    background-size: cover;
+    background-position: center;
     flex-direction: column;
 `;
 
 const Logo = styled.img`
-    width: 140px; 
+    width: 140px;
     height: auto;
     margin-bottom: 20px;
 `;
@@ -67,6 +73,30 @@ const Button = styled.button`
     }
 `;
 
+const RegisterLink = styled.span`
+    margin-top: 15px;
+    color: #5c9ded;
+    font-size: 1rem;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+        color: #4a8bc2;
+    }
+`;
+
+const CompanyButton = styled.div`
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    img {
+        width: 50px;
+        height: 50px;
+    }
+`;
+
 const ErrorMessage = styled.p`
     color: red;
     font-size: 0.9rem;
@@ -80,6 +110,7 @@ function LoginForm() {
         password: '',
     });
     const [error, setError] = useState('');
+    const [userData, setUserData] = useState(null);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -94,10 +125,16 @@ function LoginForm() {
         setError('');
 
         try {
-            const response = await login(credentials);
-            console.log('Usuario logueado con éxito:', response);
+            const responseData = await login(credentials);
+            if (responseData && responseData.status === 'success') {
+                setUserData(responseData.user);
+                localStorage.setItem('userData', JSON.stringify(responseData.user));
+                window.location.href = '/twit';
+            } else {
+                setError(responseData.message || 'Credenciales incorrectas');
+            }
         } catch (err) {
-            setError('Credenciales incorrectas');
+            setError('Error al iniciar sesión: ' + err.message);
         }
     };
 
@@ -120,8 +157,14 @@ function LoginForm() {
                     value={credentials.password}
                     onChange={handleInputChange}
                 />
-                <Button type="submit" onClick={handleBackToTwit}>Iniciar sesión</Button>
+                <Button type="submit">Iniciar sesión</Button>
                 {error && <ErrorMessage>{error}</ErrorMessage>}
+                <RegisterLink onClick={handleRegisterRedirect}>
+                    Registrarse
+                </RegisterLink>
+                <CompanyButton onClick={handleCompanyRedirect}>
+                    <img src="/icono.png" alt="Acceder como Empresa" />
+                </CompanyButton>
             </Form>
         </Container>
     );

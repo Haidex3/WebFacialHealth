@@ -104,13 +104,16 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-image: url('/FondoInicio.jpg');
+    background-size: cover;
+    background-position: center;
     padding: 20px;
 `;
 
 const Title = styled.h1`
     font-size: 2rem;
     margin-bottom: 20px;
+    color: #000;
 `;
 
 const Form = styled.form`
@@ -118,6 +121,10 @@ const Form = styled.form`
     flex-direction: column;
     gap: 10px;
     width: 300px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Input = styled.input`
