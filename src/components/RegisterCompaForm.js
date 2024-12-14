@@ -6,11 +6,12 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh;
+    min-height: 100vh;  // Cambiar height por min-height para que el contenedor ocupe toda la pantalla
     background-image: url('/FondoInicio.jpg');
     background-size: cover;
     background-position: center;
     flex-direction: column;
+    padding: 20px; // Para evitar que el contenido toque los bordes de la pantalla en móviles
 `;
 
 const Logo = styled.img`
@@ -65,6 +66,14 @@ const Button = styled.button`
     }
 `;
 
+const SecondaryButton = styled(Button)`
+    background-color: #f0f0f0;
+    color: #333;
+    &:hover {
+        background-color: #d8d8d8;
+    }
+`;
+
 const ErrorMessage = styled.p`
     color: red;
     font-size: 0.9rem;
@@ -103,7 +112,7 @@ const RegisterCompaForm = () => {
                 setIsSuccess(true);
                 setTimeout(() => {
                     // Redirigir al login o a la página deseada
-                    window.location.href = '/login';
+                    window.location.href = '/loginCompa';
                 }, 2000);
             } else {
                 setError('Error al registrar la compañía');
@@ -111,6 +120,10 @@ const RegisterCompaForm = () => {
         } catch (err) {
             setError('Error en la comunicación con el servidor');
         }
+    };
+
+    const handleLoginRedirect = () => {
+        window.location.href = '/loginCompa'; // Redirige al inicio de sesión
     };
 
     return (
@@ -166,6 +179,9 @@ const RegisterCompaForm = () => {
                 <Button type="submit">Registrar Compañía</Button>
                 {error && <ErrorMessage>{error}</ErrorMessage>}
                 {isSuccess && <p style={{ color: 'green' }}>Compañía registrada con éxito!</p>}
+                <SecondaryButton type="button" onClick={handleLoginRedirect}>
+                    Volver al Inicio de Sesión
+                </SecondaryButton>
             </Form>
         </Container>
     );

@@ -140,10 +140,11 @@ const Container = styled.div`
     min-height: 100vh;
     position: relative;
     background-image: url('fondoAnalisis.jpg');
-    background-size: cover;
+    background-size: 100% auto; /* Ajusta el fondo para ocupar más altura */
     background-position: center;
     background-repeat: no-repeat;
 `;
+
 
 const Content = styled.div`
     padding: 20px;
